@@ -1269,7 +1269,7 @@ bool BMSChartReader::ReadNoteData()
 
 	int trackMeasure = -1;
 	float measureStartBeat = 0.0f;
-	double measureSize = 0.0f;
+	float measureSize = 0.0f;
 	float adjustedMeasureSize = 0.0f;
 	float measureAdjust = 1.0f;
 	int firstNoteMeasure = 0;
@@ -1296,15 +1296,15 @@ bool BMSChartReader::ReadNoteData()
 			measureStartBeat += adjustedMeasureSize;
 			measureSize = 4.0f;
 			BMSMeasures::iterator it = in->measures.find(trackMeasure);
-			if( it != in->measures.end() ) measureSize = it->second.size * 4.0;
+			if( it != in->measures.end() ) measureSize = it->second.size * 4.0f;
 			adjustedMeasureSize = measureSize;
 			if( trackMeasure < firstNoteMeasure ) adjustedMeasureSize = measureSize = 4.0f;
 
 			// measure size adjustment
 			{
 				bmFrac numFrac = toFraction(measureSize);
-				long long num = numFrac.num;
-				long long den = 4 * numFrac.den;
+				int num = static_cast<int>(numFrac.num);
+				int den = static_cast<int>(4 * numFrac.den);
 
 				while ( num % 2 == 0 && den % 2 == 0 && den > 4  ) { // Both are multiples of 2
 					num /= 2;

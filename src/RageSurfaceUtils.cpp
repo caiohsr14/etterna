@@ -1,4 +1,4 @@
-#include "global.h"
+﻿#include "global.h"
 #include "RageFile.h"
 #include "RageLog.h"
 #include "RageSurface.h"
@@ -582,7 +582,7 @@ static bool blit_rgba_to_rgba( const RageSurface *src_surf, const RageSurface *d
 	std::vector<std::thread> threads;
 	threads.reserve(numThreads);
 
-	for (int curThread = 0; curThread < numThreads; ++curThread)
+	for (unsigned int curThread = 0; curThread < numThreads; ++curThread)
 	{
 		threads.push_back(std::thread([&, curThread] {
 			int startingPoint = segmentSize*curThread;

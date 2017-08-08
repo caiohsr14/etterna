@@ -2421,7 +2421,7 @@ void NoteDataUtil::IcyWorld(NoteData &inout, StepsType st, TimingData const& tim
 	int lastTap = -1;
 	bool flipStartSide = false;
 	bool skipLine = true;
-	int i = 0;
+	size_t i = 0;
 	for (auto iterator : rowsWithNotes)
 	{
 		// Every second row with note, insert a note which doesn't collide with the previous
@@ -2434,7 +2434,7 @@ void NoteDataUtil::IcyWorld(NoteData &inout, StepsType st, TimingData const& tim
 				continue;
 			}
 
-			int tempI = (i + 1 < rowsWithNotes.size() ? i + 1 : i);
+			size_t tempI = (i + 1 < rowsWithNotes.size() ? i + 1 : i);
 			if (flipStartSide)
 			{
 				for (int c = 3; c >-1; c--)
@@ -2497,7 +2497,7 @@ void NoteDataUtil::AnchorJS(NoteData &inout, StepsType st, TimingData const& tim
 	int lastTap = -1;
 	bool flipStartSide = false;
 	bool skipLine = true;
-	int i = 0;
+	size_t i = 0;
 	for (auto iterator : rowsWithNotes)
 	{
 		// Every second row with note, insert a note which doesn't collide with the previous
@@ -2510,7 +2510,7 @@ void NoteDataUtil::AnchorJS(NoteData &inout, StepsType st, TimingData const& tim
 				continue;
 			}
 				
-			int tempI = (i + 1 < rowsWithNotes.size() ? i + 1 : i);
+			size_t tempI = (i + 1 < rowsWithNotes.size() ? i + 1 : i);
 			if (flipStartSide)
 			{
 				for (int c = 3; c >-1; c--)

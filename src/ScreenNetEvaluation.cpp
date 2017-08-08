@@ -186,9 +186,9 @@ void ScreenNetEvaluation::UpdateStats()
 	// Only run these commands if the theme has these things shown; not every
 	// theme has them, so don't assume. -aj
 	if( THEME->GetMetricB(m_sName,"ShowGradeArea") )
-		m_Grades[m_pActivePlayer].SetGrade( (Grade)NSMAN->m_EvalPlayerData[m_iCurrentPlayer].grade );
+		m_Grades[m_pActivePlayer].SetGrade( static_cast<Grade>(NSMAN->m_EvalPlayerData[m_iCurrentPlayer].grade) );
 	if( THEME->GetMetricB(m_sName,"ShowScoreArea") )
-		m_textScore[m_pActivePlayer].SetTargetNumber( NSMAN->m_EvalPlayerData[m_iCurrentPlayer].score );
+		m_textScore[m_pActivePlayer].SetTargetNumber( static_cast<float>(NSMAN->m_EvalPlayerData[m_iCurrentPlayer].score) );
 
 	//Values greater than 6 will cause a crash
 	if( NSMAN->m_EvalPlayerData[m_iCurrentPlayer].difficulty < 6 )
@@ -203,7 +203,7 @@ void ScreenNetEvaluation::UpdateStats()
 		// should not be shown.
 		if( !m_textJudgmentLineNumber[j][m_pActivePlayer].GetName().empty() )
 		{
-			m_textJudgmentLineNumber[j][m_pActivePlayer].SetTargetNumber( NSMAN->m_EvalPlayerData[m_iCurrentPlayer].tapScores[j] );
+			m_textJudgmentLineNumber[j][m_pActivePlayer].SetTargetNumber( static_cast<float>(NSMAN->m_EvalPlayerData[m_iCurrentPlayer].tapScores[j]) );
 		}
 	}
 

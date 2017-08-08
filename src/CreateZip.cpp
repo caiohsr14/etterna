@@ -716,7 +716,7 @@ ZRESULT TZip::set_times()
 
 	unsigned short dosdate,dostime;
 	filetime2dosdatetime(*ptm,&dosdate,&dostime);
-	times.atime = time(NULL);
+	times.atime = time(nullptr);
 	times.mtime = times.atime;
 	times.ctime = times.atime;
 	timestamp = dostime | ((static_cast<unsigned long>(dosdate))<<16);

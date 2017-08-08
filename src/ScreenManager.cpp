@@ -369,7 +369,7 @@ bool ScreenManager::IsStackedScreen( const Screen *pScreen ) const
 
 bool ScreenManager::get_input_redirected(PlayerNumber pn)
 {
-	if(pn >= m_input_redirected.size())
+	if(static_cast<size_t>(pn) >= m_input_redirected.size())
 	{
 		return false;
 	}
@@ -378,7 +378,7 @@ bool ScreenManager::get_input_redirected(PlayerNumber pn)
 
 void ScreenManager::set_input_redirected(PlayerNumber pn, bool redir)
 {
-	while(pn >= m_input_redirected.size())
+	while(static_cast<size_t>(pn) >= m_input_redirected.size())
 	{
 		m_input_redirected.push_back(false);
 	}

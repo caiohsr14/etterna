@@ -140,7 +140,7 @@ struct SMLoader
 	
 	virtual void ProcessCombos(TimingData & /* out */,
 				   const RString &line,
-				   const int /* rowsPerBeat */ = -1) {}
+				   int /* rowsPerBeat */ = -1) {}
 	
 	/**
 	 * @brief Process the Fake Segments from the string.

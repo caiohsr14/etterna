@@ -964,7 +964,7 @@ struct LunaCubicSplineN : Luna<CubicSplineN>
 #define SET_GET_LUA(name) \
 	static int set_##name(T* p, lua_State* L) \
 	{ \
-		p->set_##name(lua_toboolean(L, 1)); \
+		p->set_##name(lua_toboolean(L, 1) != 0); \
 		COMMON_RETURN_SELF; \
 	} \
 	static int get_##name(T* p, lua_State* L) \

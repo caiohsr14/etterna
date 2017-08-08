@@ -103,7 +103,7 @@ void LifeMeterTime::OnLoadSong()
 	Steps* steps = GAMESTATE->m_pCurSteps[m_pPlayerState->m_PlayerNumber];
 	ASSERT(steps != NULL);
 	RadarValues radars = steps->GetRadarValues();
-	float scorable_things = radars[RadarCategory_TapsAndHolds] +
+	int scorable_things = radars[RadarCategory_TapsAndHolds] +
 		radars[RadarCategory_Lifts];
 	if (g_fTimeMeterSecondsChange[SE_Held] > 0.0f)
 	{

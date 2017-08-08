@@ -1003,7 +1003,7 @@ public:
 	static size_t ValidStateIndex(T* p, lua_State *L, int pos)
 	{
 		int index= IArg(pos)-1;
-		if(index < 0 || static_cast<size_t>(index) >= p->GetNumStates())
+		if(index < 0 || index >= p->GetNumStates())
 		{
 			luaL_error(L, "Invalid state index %d.", index+1);
 		}
@@ -1099,12 +1099,12 @@ public:
 	}
 	static size_t QuadStateIndex(T* p, lua_State *L, int pos)
 	{
-		int index= IArg(pos)-1;
-		if(index < 0 || static_cast<size_t>(index) >= p->GetNumQuadStates())
+		size_t index = IArg(pos)-1;
+		if(index < 0 || index >= p->GetNumQuadStates())
 		{
 			luaL_error(L, "Invalid state index %d.", index+1);
 		}
-		return static_cast<size_t>(index);
+		return index;
 	}
 	static int AddQuadState(T* p, lua_State *L)
 	{

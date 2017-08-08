@@ -1126,7 +1126,7 @@ bool GetCommandlineArgument( const RString &option, RString *argument, int iInde
 RString GetCwd()
 {
 	char buf[PATH_MAX];
-	bool ret = getcwd(buf, PATH_MAX) != NULL;
+	bool ret = _getcwd(buf, PATH_MAX) != NULL;
 	ASSERT(ret);
 	return buf;
 }
@@ -1161,7 +1161,7 @@ void CRC32( unsigned int &iCRC, const void *pVoidBuffer, size_t iSize )
 
 	iCRC ^= 0xFFFFFFFF;
 
-	const auto *pBuffer = reinterpret_cast<const char *>( pVoidBuffer);
+	const auto *pBuffer = reinterpret_cast<const char *>(pVoidBuffer);
 	for( unsigned i = 0; i < iSize; ++i )
 		iCRC = (iCRC >> 8) ^ tab[(iCRC ^ pBuffer[i]) & 0xFF];
 
@@ -1817,7 +1817,7 @@ void utf8_remove_bom( RString &sLine )
 
 void MakeUpper( char *p, size_t iLen )
 {
-	for (int i = 0; *p != '\0' && i < iLen; i++, p++)
+	for (size_t i = 0; *p != '\0' && i < iLen; i++, p++)
 	{
 		*p = toupper(*p);
 	}
@@ -1825,7 +1825,7 @@ void MakeUpper( char *p, size_t iLen )
 
 void MakeLower( char *p, size_t iLen )
 {
-	for (int i = 0; *p != '\0' && i < iLen; i++, p++)
+	for (size_t i = 0; *p != '\0' && i < iLen; i++, p++)
 	{
 		*p = tolower(*p);
 	}
@@ -1833,7 +1833,7 @@ void MakeLower( char *p, size_t iLen )
 
 void MakeUpper( wchar_t *p, size_t iLen )
 {
-	for (int i = 0; *p != L'\0' && i < iLen; i++, p++)
+	for (size_t i = 0; *p != L'\0' && i < iLen; i++, p++)
 	{
 		*p = towupper(*p);
 	}
@@ -1841,7 +1841,7 @@ void MakeUpper( wchar_t *p, size_t iLen )
 
 void MakeLower( wchar_t *p, size_t iLen )
 {
-	for (int i = 0; *p != L'\0' && i < iLen; i++, p++)
+	for (size_t i = 0; *p != L'\0' && i < iLen; i++, p++)
 	{
 		*p = towlower(*p);
 	}
@@ -2448,7 +2448,7 @@ void luafunc_approach_internal(lua_State* L, int valind, int goalind, int speedi
 	{ \
 		luaL_error(L, "approach: " #num_name " for approach %d is not a number.", process_index); \
 	} \
-	(dest)= lua_tonumber(L, index);
+	(dest)= static_cast<float>(lua_tonumber(L, index));
 	float val= 0;
 	float goal= 0;
 	float speed= 0;
@@ -2493,7 +2493,7 @@ int LuaFunc_multiapproach(lua_State* L)
 	float mult= 1.0f;
 	if(lua_isnumber(L, 4) != 0)
 	{
-		mult= lua_tonumber(L, 4);
+		mult= static_cast<float>(lua_tonumber(L, 4));
 	}
 	if(currents_len != goals_len || currents_len != speeds_len)
 	{

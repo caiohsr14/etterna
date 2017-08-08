@@ -386,9 +386,9 @@ void NoteColumnRenderArgs::SetPRZForActor(Actor* actor,
 	actor->SetX(sp_pos.x + ae_pos.x);
 	actor->SetY(sp_pos.y + ae_pos.y);
 	actor->SetZ(sp_pos.z + ae_pos.z);
-	actor->SetRotationX(sp_rot.x * PI_180R + ae_rot.x);
-	actor->SetRotationY(sp_rot.y * PI_180R + ae_rot.y);
-	actor->SetRotationZ(sp_rot.z * PI_180R + ae_rot.z);
+	actor->SetRotationX(sp_rot.x * static_cast<float>(PI_180R) + ae_rot.x);
+	actor->SetRotationY(sp_rot.y * static_cast<float>(PI_180R) + ae_rot.y);
+	actor->SetRotationZ(sp_rot.z * static_cast<float>(PI_180R) + ae_rot.z);
 	actor->SetZoomX(sp_zoom.x + ae_zoom.x);
 	actor->SetZoomY(sp_zoom.y + ae_zoom.y);
 	actor->SetZoomZ(sp_zoom.z + ae_zoom.z);
@@ -906,10 +906,10 @@ void NoteDisplay::DrawHoldPart(vector<Sprite*> &vpSpr,
 		{
 			case NCSM_Disabled:
 				// XXX: Actor rotations use degrees, Math uses radians. Convert here.
-				ae_rot.y= ArrowEffects::GetRotationY(fYOffset) * PI_180;
+				ae_rot.y= ArrowEffects::GetRotationY(fYOffset) * static_cast<float>(PI_180R);
 				break;
 			case NCSM_Offset:
-				ae_rot.y= ArrowEffects::GetRotationY(fYOffset) * PI_180;
+				ae_rot.y= ArrowEffects::GetRotationY(fYOffset) * static_cast<float>(PI_180R);
 				column_args.rot_handler->EvalForBeat(column_args.song_beat, cur_beat, sp_rot);
 				break;
 			case NCSM_Position:

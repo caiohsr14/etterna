@@ -426,8 +426,8 @@ void BitmapText::DrawChars( bool bUseStrokeTexture )
 
 	for ( int start = iStartGlyph; start < iEndGlyph; )
 	{
-		int end = start;
-		while (end < iEndGlyph  &&  m_vpFontPageTextures[end] == m_vpFontPageTextures[start])
+		size_t end = start;
+		while (end < static_cast<size_t>(iEndGlyph)  &&  m_vpFontPageTextures[end] == m_vpFontPageTextures[start])
 			end++;
 
 		bool bHaveATexture = !bUseStrokeTexture || (bUseStrokeTexture && m_vpFontPageTextures[start]->m_pTextureStroke);
@@ -459,7 +459,7 @@ void BitmapText::DrawChars( bool bUseStrokeTexture )
 			renderNow = true;
 		}
 
-		if ( haveTextures && (renderNow || end >= iEndGlyph) )
+		if ( haveTextures && (renderNow || end >= static_cast<size_t>(iEndGlyph)) )
 		{
 			DISPLAY->DrawQuads(&m_aVertices[startingPoint * 4], (end - startingPoint) * 4);
 
@@ -668,7 +668,7 @@ void BitmapText::CropLineToWidth(size_t l, int width)
 	{
 		int used_width= width;
 		wstring& line= m_wTextLines[l];
-		int fit= m_pFont->GetGlyphsThatFit(line, &used_width);
+		size_t fit= m_pFont->GetGlyphsThatFit(line, &used_width);
 		if(fit < line.size())
 		{
 			line.erase(line.begin()+fit, line.end());
@@ -777,7 +777,7 @@ void BitmapText::DrawPrimitives()
 
 			for( unsigned i=0; i<m_aVertices.size(); i+=4 )
 			{
-				RageVector3 jitter( rnd()%2, rnd()%3, 0 );
+				RageVector3 jitter( static_cast<float>(rnd()%2), static_cast<float>(rnd()%3), 0.f );
 				vGlyphJitter.push_back( jitter );
 
 				m_aVertices[i+0].p += jitter;	// top left
@@ -959,7 +959,7 @@ public:
 #undef MAX_DIMENSION
 	static int max_dimension_use_zoom(T* p, lua_State* L)
 	{
-		p->SetMaxDimUseZoom(lua_toboolean(L, 1));
+		p->SetMaxDimUseZoom(lua_toboolean(L, 1) != 0);
 		COMMON_RETURN_SELF;
 	}
 	static int vertspacing( T* p, lua_State *L )		{ p->SetVertSpacing( IArg(1) ); COMMON_RETURN_SELF; }

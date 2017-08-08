@@ -272,7 +272,7 @@ void TimingData::ShiftRange(int start_row, int end_row,
 			int first_row= min(start_row, start_row + shift_amount);
 			int last_row= max(end_row, end_row + shift_amount);
 			int first_affected= GetSegmentIndexAtRow(seg_type, first_row);
-			int last_affected= GetSegmentIndexAtRow(seg_type, last_row);
+			size_t last_affected= GetSegmentIndexAtRow(seg_type, last_row);
 			if(first_affected == INVALID_INDEX)
 			{
 				continue;

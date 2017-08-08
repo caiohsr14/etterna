@@ -208,7 +208,7 @@ void PaneDisplay::GetPaneTextAndLevel( PaneCategory c, RString & sTextOut, int &
 			case PaneCategory_MachineHighScore:
 			{
 				CHECKPOINT_M("Getting data from a high score instead of a radar value.");
-				fLevelOut = pHSL->GetTopScore().GetPercentDP();
+				fLevelOut = static_cast<int>(pHSL->GetTopScore().GetPercentDP());
 				break;
 			}
 			default: break;
@@ -236,7 +236,7 @@ void PaneDisplay::GetPaneTextAndLevel( PaneCategory c, RString & sTextOut, int &
 					if( bIsPlayerEdit )
 						sTextOut = NOT_AVAILABLE;
 					else
-						sTextOut = PlayerStageStats::FormatPercentScore( fLevelOut );
+						sTextOut = PlayerStageStats::FormatPercentScore( static_cast<float>(fLevelOut) );
 					break;
 				case PaneCategory_NumSteps:
 				case PaneCategory_Jumps:

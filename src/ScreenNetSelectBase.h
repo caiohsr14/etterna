@@ -17,7 +17,7 @@ public:
 	void ResetText();
 	void DrawPrimitives() override;
 	int lines=0;
-	void SetMaxLines(int iNumLines, int iDirection, unsigned int &scroll);
+	void SetMaxLines(size_t iNumLines, int iDirection, unsigned int &scroll);
 	void SetMaxLines( int iLines, bool bCutBottom = true );	//if bCutBottom = false then, it will crop the top
 	void SimpleAddLine( const RString &sAddition, int iWidthPixels );
 	void SetMaxLines( int iNumLines, int iDirection );
@@ -48,7 +48,7 @@ public:
 	void SetChatboxVisible(bool visibility);
 	void SetUsersVisible(bool visibility);
 	vector<BitmapText>* ToUsers();
-	void Scroll(int movescroll);
+	void Scroll(unsigned int movescroll);
 	RString GetPreviousMsg();
 	RString GetNextMsg();
 	void SetInputText(RString text);

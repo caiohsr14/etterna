@@ -130,14 +130,14 @@ void RageDisplay::ProcessStatsOnFlip()
 		g_iFramesRenderedSinceLastReset++;
 
 		std::chrono::duration<double> timeDelta = std::chrono::steady_clock::now() - g_LastCheckTimer;
-		float checkTime = timeDelta.count();
-		if (checkTime >= 1.0f)	// update stats every 1 sec.
+		double checkTime = timeDelta.count();
+		if (checkTime >= 1.0)	// update stats every 1 sec.
 		{
 			g_LastCheckTimer = std::chrono::steady_clock::now();
 			g_iNumChecksSinceLastReset++;
-			g_iFPS = static_cast<int>(g_iFramesRenderedSinceLastCheck / checkTime + 0.5f);
+			g_iFPS = static_cast<int>(g_iFramesRenderedSinceLastCheck / checkTime + 0.5);
 			g_iCFPS = g_iFramesRenderedSinceLastReset / g_iNumChecksSinceLastReset;
-			g_iCFPS = static_cast<int>(g_iCFPS / checkTime + 0.5f);
+			g_iCFPS = static_cast<int>(g_iCFPS / checkTime + 0.5);
 			g_iVPF = g_iVertsRenderedSinceLastCheck / g_iFramesRenderedSinceLastCheck;
 			g_iFramesRenderedSinceLastCheck = g_iVertsRenderedSinceLastCheck = 0;
 			if (LOG_FPS)
