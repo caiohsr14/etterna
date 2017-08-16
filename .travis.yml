@@ -4,19 +4,19 @@ sudo: required
 
 matrix:
   include:
-  - env: CXX_COMPILER=clang++-5.0 CC_COMPILER=clang-5.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+  - env: CXX_COMPILER=clang++-4.0 CC_COMPILER=clang-4.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: clang
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty
+        - llvm-toolchain-trusty-4.0
         packages:
         - nasm
         - libudev-dev
-        - clang-5.0
-        - clang-format-5.0
-        - clang-tidy-5.0
+        - clang-4.0
+        - clang-format-4.0
+        - clang-tidy-4.0
         - libmad0-dev
         - libgtk2.0-dev
         - binutils-dev
@@ -37,7 +37,7 @@ matrix:
         build_command_prepend: "cov-configure --comptype clang --compiler clang-4.0 --template"
         build_command: "make -j 4"
         branch_pattern: coverity_scan
-  - env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+  - env: CXX_COMPILER=g++-7 CC_COMPILER=gcc-7 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: gcc
     addons:
       apt:
@@ -46,8 +46,7 @@ matrix:
         packages:
         - nasm
         - libudev-dev
-        - gcc-5
-        - g++-5
+        - g++-7
         - libmad0-dev
         - libgtk2.0-dev
         - binutils-dev
