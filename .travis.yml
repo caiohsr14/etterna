@@ -4,7 +4,7 @@ sudo: required
 
 matrix:
   include:
-  - env: CXX_COMPILER=clang++-4.0 CC_COMPILER=clang-4.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+  - env: CXX=clang++-4.0 CC=clang-4.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: clang
     addons:
       apt:
@@ -37,7 +37,7 @@ matrix:
         build_command_prepend: "cov-configure --comptype clang --compiler clang-4.0 --template"
         build_command: "make -j 4"
         branch_pattern: coverity_scan
-  - env: CXX_COMPILER=g++-7 CC_COMPILER=gcc-7 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+  - env: CXX=g++-7 CC=gcc-7 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: gcc
     addons:
       apt:
@@ -76,7 +76,7 @@ install:
 before_script:
   - sudo ln -s /usr/include/x86_64-linux-gnu/zconf.h /usr/include
   - cd ${TRAVIS_BUILD_DIR}/Build
-  - cmake .. -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${CC_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_FFMPEG=${WITH_FFMPEG} -DWITH_FFMPEG_JOBS=${WITH_FFMPEG_JOBS}
+  - cmake .. -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_FFMPEG=${WITH_FFMPEG} -DWITH_FFMPEG_JOBS=${WITH_FFMPEG_JOBS}
 
 script:
   - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make -j 4; fi
