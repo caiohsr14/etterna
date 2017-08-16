@@ -79,9 +79,9 @@ before_script:
   - cmake .. -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${CC_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_FFMPEG=${WITH_FFMPEG} -DWITH_FFMPEG_JOBS=${WITH_FFMPEG_JOBS}
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make -j 4; fi
   - make clang-tidy
   - make clang-format
+  - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make -j 4; fi
 
 env:
   global:

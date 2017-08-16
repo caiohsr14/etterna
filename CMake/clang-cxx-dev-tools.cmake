@@ -9,7 +9,7 @@ file(GLOB_RECURSE
 find_program(CLANG_FORMAT "clang-format-4.0")
 if(CLANG_FORMAT)
   add_custom_target(
-    clang-format
+    clang-format-4.0
     COMMAND /usr/bin/clang-format
     -i
     -style=file
@@ -21,7 +21,7 @@ endif()
 find_program(CLANG_TIDY "clang-tidy-4.0")
 if(CLANG_TIDY)
   add_custom_target(
-    clang-tidy
+    clang-tidy-4.0
     COMMAND /usr/bin/clang-tidy
     ${ALL_CXX_SOURCE_FILES}
     -config=''
