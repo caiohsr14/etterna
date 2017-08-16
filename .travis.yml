@@ -6,13 +6,13 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - llvm-toolchain-trusty-4.0
+    - llvm-toolchain-trusty
     packages:
     - nasm
     - libudev-dev
-    - clang-4.0
-    - clang-format-4.0
-    - clang-tidy-4.0
+    - clang-5.0
+    - clang-format-5.0
+    - clang-tidy-5.0
     - gcc-5
     - g++-5
     - libmad0-dev
@@ -30,9 +30,30 @@ addons:
 
 matrix:
   include:
-  - env: CXX_COMPILER=clang++-4.0 CC_COMPILER=clang-4.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+  - env: CXX_COMPILER=clang++-5.0 CC_COMPILER=clang-5.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: clang
     addons:
+      apt:
+        sources:
+        - llvm-toolchain-trusty
+        packages:
+        - nasm
+        - libudev-dev
+        - clang-5.0
+        - clang-format-5.0
+        - clang-tidy-5.0
+        - libmad0-dev
+        - libgtk2.0-dev
+        - binutils-dev
+        - libasound-dev
+        - libpulse-dev
+        - libjack-dev
+        - libc6-dev
+        - libogg-dev
+        - libvorbis-dev
+        - libxtst-dev
+        - libxrandr-dev
+        - libglew-dev
       coverity_scan:
         project:
           name: etternagame/etterna
@@ -43,6 +64,27 @@ matrix:
         branch_pattern: coverity_scan
   - env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: gcc
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - nasm
+        - libudev-dev
+        - gcc-5
+        - g++-5
+        - libmad0-dev
+        - libgtk2.0-dev
+        - binutils-dev
+        - libasound-dev
+        - libpulse-dev
+        - libjack-dev
+        - libc6-dev
+        - libogg-dev
+        - libvorbis-dev
+        - libxtst-dev
+        - libxrandr-dev
+        - libglew-dev
 
 install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
