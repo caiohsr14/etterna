@@ -2,67 +2,58 @@ language: cpp
 dist: trusty
 sudo: required
 
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-trusty-4.0
+    packages:
+    - nasm
+    - libudev-dev
+    - clang-4.0
+    - clang-format-4.0
+    - clang-tidy-4.0
+    - gcc-5
+    - g++-5
+    - libmad0-dev
+    - libgtk2.0-dev
+    - binutils-dev
+    - libasound-dev
+    - libpulse-dev
+    - libjack-dev
+    - libc6-dev
+    - libogg-dev
+    - libvorbis-dev
+    - libxtst-dev
+    - libxrandr-dev
+    - libglew-dev
+
 matrix:
   include:
-  - env: CXX_COMPILER=clang++-3.6 CC_COMPILER=clang-3.6 BUILD_TYPE=Release WITH_FFMPEG=OFF
-      WITH_FFMPEG_JOBS=1
+  - env: CXX_COMPILER=clang++-4.0 CC_COMPILER=clang-4.0 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
     compiler: clang
-    addons: &1
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-3.6
-        packages:
-        - nasm
-        - libudev-dev
-        - clang-3.6
-        - libmad0-dev
-        - libgtk2.0-dev
-        - binutils-dev
-        - libasound-dev
-        - libpulse-dev
-        - libjack-dev
-        - libc6-dev
-        - libogg-dev
-        - libvorbis-dev
-        - libxtst-dev
-        - libxrandr-dev
-        - libglew-dev
-  - env: CXX_COMPILER=clang++-3.6 CC_COMPILER=clang-3.6 BUILD_TYPE=Release WITH_FFMPEG=ON
-      WITH_FFMPEG_JOBS=1
-    compiler: clang
-    addons: *1
-  - env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release WITH_FFMPEG=OFF WITH_FFMPEG_JOBS=1
-    compiler: gcc
     addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - nasm
-        - libudev-dev
-        - gcc-5
-        - g++-5
-        - libmad0-dev
-        - libgtk2.0-dev
-        - binutils-dev
-        - libasound-dev
-        - libpulse-dev
-        - libjack-dev
-        - libc6-dev
-        - libogg-dev
-        - libvorbis-dev
-        - libxtst-dev
-        - libxrandr-dev
-        - libglew-dev
       coverity_scan:
         project:
           name: etternagame/etterna
           description: "Build submitted via Travis CI"
         notification_email: etternadev@gmail.com
-        build_command_prepend: "cov-configure --comptype g++ --compiler g++-5 --template"
+        build_command_prepend: "cov-configure --comptype clang --compiler clang-4.0 --template"
         build_command: "make -j 4"
         branch_pattern: coverity_scan
+  - env: CXX_COMPILER=g++-5 CC_COMPILER=gcc-5 BUILD_TYPE=Release WITH_FFMPEG=ON WITH_FFMPEG_JOBS=1
+    compiler: gcc
+
+install:
+  - |
+    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+      CMAKE_URL="https://cmake.org/files/v3.9/cmake-3.9.1-Linux-x86_64.tar.gz"
+      mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+    else
+      brew upgrade cmake || brew install cmake
+    fi
+  - cmake --version
 
 before_script:
   - sudo ln -s /usr/include/x86_64-linux-gnu/zconf.h /usr/include
@@ -71,6 +62,8 @@ before_script:
 
 script:
   - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then make -j 4; fi
+  - make clang-tidy
+  - make clang-format
 
 env:
   global:

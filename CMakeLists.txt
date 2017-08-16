@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.2.0)
+cmake_minimum_required(VERSION 3.6.0)
 
 project(StepMania)
 
-include (StepmaniaCore.cmake)
+include(StepmaniaCore.cmake)
+include(cmake/clang-cxx-dev-tools.cmake)
 
 # The external libraries need to be included.
 add_subdirectory(extern)
