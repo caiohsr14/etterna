@@ -17,6 +17,7 @@ First you move the downloaded script to the root folder of your game, or whateve
 
 
 Then open your preferred command line tool and navigate to your folder, if you don't have any you can either open Windows Command Prompt, Windows Powershell or Git Bash
+
 For this one I'm going to use the Windows Command Prompt:
 ![image](img/image2.png?raw=true)
 
